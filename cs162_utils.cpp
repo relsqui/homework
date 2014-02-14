@@ -37,7 +37,7 @@ int read_int(const char prompt[]) {
     cout << prompt;
     if (cin.peek() == '\n') {
         cin.clear();
-        number = 0;
+        number = -1;
     } else {
         cin >> number;
     }
