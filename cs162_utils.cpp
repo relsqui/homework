@@ -35,8 +35,11 @@ void read_chars(char array[], int length, const char prompt[]) {
 int read_int(const char prompt[]) {
     int number = 0;
     cout << prompt;
-    if (!(cin >> number)) {
+    if (cin.peek() == '\n') {
         cin.clear();
+        number = 0;
+    } else {
+        cin >> number;
     }
     empty_cin();
     return number;
