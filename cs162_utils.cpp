@@ -90,6 +90,7 @@ bool boolean_prompt(const char prompt[]) {
         if (cin.peek() != '\n') {
             cin >> response;
         }
+        empty_cin();
         if (partial_match(response, "yes")) {
             return true;
         } else if (partial_match(response, "no")) {
@@ -98,6 +99,5 @@ bool boolean_prompt(const char prompt[]) {
             cout << "Please type y or n." << endl;
             response[0] = '\0';
         }
-        empty_cin();
     } while (response[0] == '\0');
 }
