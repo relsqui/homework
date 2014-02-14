@@ -9,29 +9,6 @@ void empty_cin() {
 }
 
 
-bool boolean_prompt(const char prompt[]) {
-    char response = '\0';
-    do {
-        cout << prompt;
-        if (cin.peek() != '\n') {
-            cin >> response;
-        }
-        switch (tolower(response)) {
-            case 'y':
-                return true;
-                break;
-            case 'n':
-                return false;
-                break;
-            default:
-                cout << "Please type y or n." << endl;
-                response = '\0';
-        }
-        empty_cin();
-    } while (response == '\0');
-}
-
-
 void read_chars(char array[], int length, const char prompt[]) {
     bool toolong = false;
     do {
@@ -65,10 +42,52 @@ int read_int(const char prompt[]) {
 }
 
 
-void strlower(char in_string[], char out_string[]) {
+void strlower(const char in_string[], char out_string[]) {
     int i = 0;
     for (; i < strlen(in_string); i++) {
         out_string[i] = tolower(in_string[i]);
     }
     out_string[i] = '\0';
+}
+
+
+bool partial_match(const char input[], const char target[]) {
+    char * input_lower;
+    char * target_lower;
+    if (!strlen(input)) {
+        return false;
+    }
+    input_lower = new char[strlen(input)];
+    target_lower = new char[strlen(target)];
+    strlower(input, input_lower);
+    strlower(target, target_lower);
+    if (strncmp(input_lower, target_lower, strlen(input))) {
+        delete [] input_lower;
+        delete [] target_lower;
+        return false;
+    } else {
+        delete [] input_lower;
+        delete [] target_lower;
+        return true;
+    }
+}
+
+
+bool boolean_prompt(const char prompt[]) {
+    char response[4] = "\0";
+    do {
+        cout << prompt;
+        if (cin.peek() != '\n') {
+            cin >> response;
+        }
+        if (partial_match(response, "yes")) {
+            return true;
+        } else if (partial_match(response, "no")) {
+            return false;
+        } else {
+            cout << "Please type y or n." << endl;
+            response[0] = '\0';
+        }
+        empty_cin();
+    } while (response[0] == '\0');
 }
