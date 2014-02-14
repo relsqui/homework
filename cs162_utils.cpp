@@ -35,10 +35,20 @@ void read_chars(char array[], int length, const char prompt[]) {
 int read_int(const char prompt[]) {
     int number = 0;
     cout << prompt;
-    if (!cin >> number) {
+    if (!(cin >> number)) {
         cin.clear();
     }
     empty_cin();
+    return number;
+}
+
+
+void strupper(const char in_string[], char out_string[]) {
+    int i = 0;
+    for (; i < strlen(in_string); i++) {
+        out_string[i] = toupper(in_string[i]);
+    }
+    out_string[i] = '\0';
 }
 
 
