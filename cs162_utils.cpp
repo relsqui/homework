@@ -83,7 +83,7 @@ bool partial_match(const char input[], const char target[]) {
     // correctly matching abbreviations (e.g. "y" and "YE" both match "yes").
     char * input_lower;
     char * target_lower;
-    if (!strlen(input)) {
+    if (!strlen(input) || strlen(input) > strlen(target)) {
         return false;
     }
     input_lower = new char[strlen(input)];
